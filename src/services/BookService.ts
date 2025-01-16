@@ -6,13 +6,23 @@ class BookService {
   static async getTextById(bookId: string): Promise<string> {
     if (!bookId) throw new Error("Book ID is required");
 
-    const response = await axios.get(
-      `https://www.gutenberg.org/files/${bookId}/${bookId}-0.txt`
-    );
+    const urls = [
+      `https://www.gutenberg.org/files/${bookId}/${bookId}-0.txt`,
+      `https://www.gutenberg.org/files/${bookId}/${bookId}.txt`,
+    ];
 
-    if (!response.data) throw new Error("Book not found");
+    for (const url of urls) {
+      try {
+        const response = await axios.get(url);
+        if (response.data) {
+          return response.data;
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch from URL: ${url}, trying next...`);
+      }
+    }
 
-    return response.data;
+    throw new Error("Book not found at any URL");
   }
 
   static async getMetadataById(bookId: string): Promise<any> {
