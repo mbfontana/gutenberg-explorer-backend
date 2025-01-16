@@ -64,6 +64,7 @@ export const countriesFlag = {
   ee: "https://i.ibb.co/qmX8tkP/ee.png",
   eg: "https://i.ibb.co/qg3Wn1Z/eg.png",
   eh: "https://i.ibb.co/rxq8r8H/eh.png",
+  en: "https://i.ibb.co/tbMNKvt/gb.png",
   er: "https://i.ibb.co/w6qKk1q/er.png",
   es: "https://i.ibb.co/5rxBYYm/es.png",
   et: "https://i.ibb.co/KLDn3m6/et.png",

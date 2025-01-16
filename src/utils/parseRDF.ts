@@ -21,18 +21,26 @@ const parseRDF = async (rdfString: string): Promise<Metadata | null> => {
   try {
     const result = await parser.parseStringPromise(rdfString);
     const ebook = result["rdf:RDF"]["pgterms:ebook"];
+
     const metadata: Metadata = {
-      publisher: ebook["dcterms:publisher"],
-      issuedDate: ebook["dcterms:issued"]["_"],
-      rights: ebook["dcterms:rights"],
-      title: ebook["dcterms:title"],
-      language: ebook["dcterms:language"]["rdf:Description"]["rdf:value"]["_"],
+      publisher: ebook["dcterms:publisher"] || null,
+      issuedDate: ebook["dcterms:issued"]?.["_"] || null,
+      rights: ebook["dcterms:rights"] || null,
+      title: ebook["dcterms:title"] || null,
+      language:
+        ebook["dcterms:language"]?.["rdf:Description"]?.["rdf:value"]?.["_"] ||
+        null,
       author: {
-        name: ebook["dcterms:creator"]["pgterms:agent"]["pgterms:name"],
+        name:
+          ebook["dcterms:creator"]?.["pgterms:agent"]?.["pgterms:name"] || null,
         birthdate:
-          ebook["dcterms:creator"]["pgterms:agent"]["pgterms:birthdate"]["_"],
+          ebook["dcterms:creator"]?.["pgterms:agent"]?.["pgterms:birthdate"]?.[
+            "_"
+          ] || null,
         deathdate:
-          ebook["dcterms:creator"]["pgterms:agent"]["pgterms:deathdate"]["_"],
+          ebook["dcterms:creator"]?.["pgterms:agent"]?.["pgterms:deathdate"]?.[
+            "_"
+          ] || null,
       },
     };
 
