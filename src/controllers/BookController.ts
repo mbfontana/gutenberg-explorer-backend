@@ -6,7 +6,7 @@ class BookController {
     try {
       const bookId = req.params.id;
       const bookText = await BookService.getTextById(bookId);
-      res.status(200).send(bookText);
+      res.status(200).send(bookText as string);
     } catch (error) {
       next(error);
     }
@@ -20,7 +20,8 @@ class BookController {
     try {
       const bookId = req.params.id;
       const metadata = await BookService.getMetadataById(bookId);
-      res.status(200).send(metadata);
+      const cover = await BookService.getCoverById(bookId);
+      res.status(200).send({ id: bookId, ...metadata, cover });
     } catch (error) {
       next(error);
     }
@@ -31,7 +32,7 @@ class BookController {
       const bookId = req.params.id;
       const bookText = await BookService.getTextById(bookId);
       const metadata = await BookService.getMetadataById(bookId);
-      res.status(200).send({ text: bookText, ...metadata });
+      res.status(200).send({ id: bookId, text: bookText, ...metadata });
     } catch (error) {
       next(error);
     }
