@@ -11,10 +11,6 @@ class LLMService {
     const completion = await this.groq.chat.completions.create({
       messages: [
         {
-          role: "system",
-          content: "You are a helpful assistant.",
-        },
-        {
           role: "user",
           content: prompt,
         },
