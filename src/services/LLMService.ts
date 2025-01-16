@@ -1,4 +1,3 @@
-import axios from "axios";
 import Groq from "groq-sdk";
 
 class LLMService {

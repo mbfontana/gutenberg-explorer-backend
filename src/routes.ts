@@ -8,7 +8,8 @@ router.get("/health-check", (req: Request, res: Response) => {
   res.sendStatus(200);
 });
 
-router.get("/book/:id", BookController.getTextById);
+router.get("/book/:id", BookController.getById);
+router.get("/book/:id/text", BookController.getTextById);
 router.get("/book/:id/metadata", BookController.getMetadataById);
 
 router.post("/llm/completion", LLMController.getCompletion);
